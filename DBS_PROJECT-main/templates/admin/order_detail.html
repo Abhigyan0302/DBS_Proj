@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Order #{{ order.OrderNo }} Details{% endblock %}
+
+{% block content %}
+<div class="admin-order-detail" style="background-color: #121212; color: white; padding: 30px; border-radius: 8px;">
+    <h1 style="font-size: 2.5em; text-align: center;">Order #{{ order.OrderNo }} Details</h1>
+    
+    <div class="order-info" style="margin-top: 30px;">
+        <h2 style="font-size: 2em; color: #bbb;">Order Information</h2>
+        <p><strong>Customer:</strong> {{ order.CustomerName }}</p>
+        <p><strong>Order Date:</strong> {{ order.Date }}</p>
+        <p><strong>Total Amount:</strong> ${{ order.Amount }}</p>
+        <p><strong>Invoice ID:</strong> {% if order.InvoiceID %}#{{ order.InvoiceID }}{% else %}Pending{% endif %}</p>
+        
+        <h3 style="font-size: 1.8em; color: #bbb;">Shipping Address</h3>
+        <p>{{ order.Address }}</p>
+        <p>{{ order.City }}, {{ order.Country }} {{ order.PinCode }}</p>
+    </div>
+    
+    <div class="order-items" style="margin-top: 30px;">
+        <h2 style="font-size: 2em; color: #bbb;">Order Items</h2>
+        <table class="table" style="width: 100%; border-collapse: collapse; margin-top: 20px; color: white;">
+            <thead>
+                <tr>
+                    <th style="padding: 10px; text-align: left;">Product ID</th>
+                    <th style="padding: 10px; text-align: left;">Product Name</th>
+                    <th style="padding: 10px; text-align: left;">Category</th>
+                    <th style="padding: 10px; text-align: left;">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr style="border-top: 1px solid #444;">
+                    <td style="padding: 10px;">{{ item.PID }}</td>
+                    <td style="padding: 10px;">{{ item.Pname }}</td>
+                    <td style="padding: 10px;">{{ item.Category }}</td>
+                    <td style="padding: 10px;">${{ item.Price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <a href="{{ url_for('admin_orders') }}" class="btn btn-secondary" style="background-color: #888; color: white; padding: 10px 20px; font-size: 1.2em; border: none; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 30px;">Back to Orders</a>
+</div>
+{% endblock %}

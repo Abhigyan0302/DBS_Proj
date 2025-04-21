@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    {% if search_query %}
+        <h1>Search Results for "{{ search_query }}"</h1>
+    {% else %}
+        <h1>Welcome to Our E-commerce Store</h1>
+        <p>Find the best products at the best prices</p>
+    {% endif %}
+</section>
+
+<section class="products">
+    {% if search_query %}
+        <h2>Products matching "{{ search_query }}"</h2>
+    {% else %}
+        <h2>Featured Products</h2>
+    {% endif %}
+    
+    {% if products %}
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ url_for('static', filename='img/product-placeholder.jpg') }}" alt="{{ product.Pname }}">
+                <div class="product-info">
+                    <h3>{{ product.Pname }}</h3>
+                    <p class="price">${{ product.Price }}</p>
+                    <a href="{{ url_for('product_detail', product_id=product.PID) }}" class="btn">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% if search_query %}
+            <p>No products found matching "{{ search_query }}".</p>
+        {% else %}
+            <p>No products available at this time.</p>
+        {% endif %}
+    {% endif %}
+</section>
+
+<style>
+    .hero {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .products {
+        background-color: #2b2b2b;
+        color: #e0e0e0;
+        padding: 40px 20px;
+    }
+
+    .products h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        background-color: #333333;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+    }
+
+    .product-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .product-info h3 {
+        color: #ffffff;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .price {
+        color: #ff9900;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        background-color: #ff9900;
+        padding: 10px 20px;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 16px;
+        text-transform: uppercase;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #ff7300;
+    }
+
+    .no-products {
+        text-align: center;
+        font-size: 18px;
+        color: #ff6600;
+    }
+</style>
+{% endblock %}

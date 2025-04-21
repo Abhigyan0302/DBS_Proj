@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block content %}
+<div class="admin-add-product" style="background-color: #121212; color: white; padding: 20px; border-radius: 8px; max-width: 800px; margin: auto;">
+    <h1 style="text-align: center; font-size: 2em;">Add New Product</h1>
+    
+    <form method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+        <div class="form-group" style="display: flex; flex-direction: column;">
+            <label for="name" style="font-size: 1.2em; color: #bbb;">Product Name</label>
+            <input type="text" id="name" name="name" class="form-control" required style="padding: 10px; font-size: 1em; background-color: #2a2a2a; color: white; border: 1px solid #444; border-radius: 5px;">
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column;">
+            <label for="category" style="font-size: 1.2em; color: #bbb;">Category</label>
+            <input type="text" id="category" name="category" class="form-control" required style="padding: 10px; font-size: 1em; background-color: #2a2a2a; color: white; border: 1px solid #444; border-radius: 5px;">
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column;">
+            <label for="price" style="font-size: 1.2em; color: #bbb;">Price</label>
+            <input type="number" id="price" name="price" step="0.01" class="form-control" required style="padding: 10px; font-size: 1em; background-color: #2a2a2a; color: white; border: 1px solid #444; border-radius: 5px;">
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column;">
+            <label for="supplier_id" style="font-size: 1.2em; color: #bbb;">Supplier</label>
+            <select id="supplier_id" name="supplier_id" class="form-control" required style="padding: 10px; font-size: 1em; background-color: #2a2a2a; color: white; border: 1px solid #444; border-radius: 5px;">
+                {% for supplier in suppliers %}
+                <option value="{{ supplier.SupID }}" style="background-color: #333; color: white;">{{ supplier.Sname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column;">
+            <label for="storage_id" style="font-size: 1.2em; color: #bbb;">Storage</label>
+            <select id="storage_id" name="storage_id" class="form-control" required style="padding: 10px; font-size: 1em; background-color: #2a2a2a; color: white; border: 1px solid #444; border-radius: 5px;">
+                {% for storage in storage_options %}
+                <option value="{{ storage.StorageID }}" style="background-color: #333; color: white;">{{ storage.Sitem }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group" style="display: flex; flex-direction: column;">
+            <label for="quantity" style="font-size: 1.2em; color: #bbb;">Quantity</label>
+            <input type="number" id="quantity" name="quantity" class="form-control" required style="padding: 10px; font-size: 1em; background-color: #2a2a2a; color: white; border: 1px solid #444; border-radius: 5px;">
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; font-size: 1.2em; border: none; border-radius: 5px; cursor: pointer;">Add Product</button>
+        <a href="{{ url_for('admin_products') }}" class="btn btn-secondary" style="background-color: #f44336; color: white; padding: 10px 20px; font-size: 1.2em; border: none; border-radius: 5px; text-decoration: none;">Cancel</a>
+    </form>
+</div>
+{% endblock %}

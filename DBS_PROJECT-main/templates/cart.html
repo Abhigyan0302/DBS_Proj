@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+<div class="cart">
+    <h1>Your Shopping Cart</h1>
+
+    {% if cart_items %}
+        <div class="cart-items">
+            {% for item in cart_items %}
+            <div class="cart-item">
+                <img src="{{ url_for('static', filename='img/product-placeholder.jpg') }}" alt="{{ item.Pname }}">
+                <div class="item-info">
+                    <h3>{{ item.Pname }}</h3>
+                    <p class="price">${{ item.Price }}</p>
+                    <p class="quantity">Quantity: {{ item.Quantity }}</p>
+                    <form method="POST" action="{{ url_for('remove_from_cart') }}">
+                        <input type="hidden" name="product_id" value="{{ item.PID }}">
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="cart-total">
+            <p><strong>Total Amount:</strong> ${{ total_amount }}</p>
+            <a href="{{ url_for('checkout') }}" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
+
+    {% else %}
+        <p>Your cart is empty.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Start Shopping</a>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+<style>
+    .cart {
+        background-color: #2b2b2b;
+        padding: 30px;
+        border-radius: 8px;
+        color: #e0e0e0;
+    }
+
+    .cart h1 {
+        color: #ffffff;
+    }
+
+    .cart-items {
+        margin-bottom: 30px;
+    }
+
+    .cart-item {
+        display: flex;
+        gap: 20px;
+        padding: 15px;
+        background-color: #3e3e3e;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .cart-item img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .item-info {
+        flex: 1;
+    }
+
+    .item-info h3 {
+        color: #ffffff;
+    }
+
+    .item-info .price, .item-info .quantity {
+        color: #cfcfcf;
+    }
+
+    .cart-total {
+        background-color: #3e3e3e;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .cart-total .btn {
+        background-color: #ff9900;
+    }
+
+    .btn-danger {
+        background-color: #f44336;
+    }
+
+    .btn-danger:hover {
+        background-color: #e53935;
+    }
+
+    .btn-secondary {
+        background-color: #607d8b;
+    }
+
+    .btn-secondary:hover {
+        background-color: #455a64;
+    }
+
+    .btn:hover {
+        background-color: #ff7300;
+    }
+</style>

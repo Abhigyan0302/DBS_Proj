@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+<div class="order-history">
+    <h1>Your Orders</h1>
+    
+    {% if orders %}
+        <div class="orders-list">
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header">
+                    <h3>Order #{{ order.OrderNo }}</h3>
+                    <p class="order-date">Placed on: {{ order.Date }}</p>
+                </div>
+                <div class="order-details">
+                    <p><strong>Total:</strong> ${{ order.Amount }}</p>
+                    <p><strong>Invoice:</strong> {% if order.InvoiceID %}#{{ order.InvoiceID }}{% else %}Pending{% endif %}</p>
+                </div>
+                <a href="{{ url_for('order_detail', order_id=order.OrderNo) }}" class="btn">View Details</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't placed any orders yet.</p>
+        <a href="{{ url_for('index') }}" class="btn">Start Shopping</a>
+    {% endif %}
+</div>
+
+<style>
+    .order-history {
+        background-color: #2b2b2b;
+        color: #e0e0e0;
+        padding: 40px 20px;
+        border-radius: 8px;
+        max-width: 900px;
+        margin: 40px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-history h1 {
+        font-size: 36px;
+        color: #ff9900;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .orders-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .order-card {
+        background-color: #333333;
+        padding: 20px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+    }
+
+    .order-card:hover {
+        transform: scale(1.03);
+    }
+
+    .order-header h3 {
+        font-size: 22px;
+        color: #ff9900;
+    }
+
+    .order-date {
+        font-size: 16px;
+        color: #cccccc;
+    }
+
+    .order-details {
+        font-size: 18px;
+        color: #e0e0e0;
+    }
+
+    .btn {
+        background-color: #ff9900;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: #ffffff;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #ff7f00;
+    }
+
+    .order-card a {
+        margin-left: auto;
+    }
+</style>
+{% endblock %}
+

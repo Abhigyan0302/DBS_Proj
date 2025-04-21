@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+<div class="profile">
+    <h1>Your Profile</h1>
+    
+    <div class="profile-info">
+        <h2>Account Information</h2>
+        <p><strong>Name:</strong> {{ user.Cname }}</p>
+        <p><strong>Email:</strong> {{ user.Email }}</p>
+        <p><strong>Phone:</strong> {{ user.Phone }}</p>
+        
+        <h2>Address</h2>
+        <p>{{ user.Address }}</p>
+        
+        <a href="{{ url_for('edit_profile') }}" class="btn">Edit Profile</a>
+    </div>
+    
+    <div class="profile-actions">
+        <h2>Account Actions</h2>
+        <a href="{{ url_for('order_history') }}" class="btn">View Order History</a>
+    </div>
+</div>
+
+<style>
+    .profile {
+        background-color: #2b2b2b;
+        color: #e0e0e0;
+        padding: 40px;
+        border-radius: 8px;
+        max-width: 1000px;
+        margin: 40px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+        font-size: 36px;
+        color: #ff9900;
+    }
+
+    .profile-info h2, .profile-actions h2 {
+        font-size: 24px;
+        margin-top: 20px;
+        color: #e0e0e0;
+    }
+
+    p {
+        font-size: 18px;
+        margin: 10px 0;
+        color: #cccccc;
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: #ff9900;
+        padding: 12px 24px;
+        font-size: 18px;
+        text-decoration: none;
+        color: #ffffff;
+        border-radius: 5px;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #ff7f00;
+    }
+</style>
+{% endblock %}

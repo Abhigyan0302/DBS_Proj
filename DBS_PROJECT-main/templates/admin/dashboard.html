@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard" style="background-color: #121212; color: white; padding: 30px; border-radius: 8px;">
+    <h1 style="font-size: 2.5em; text-align: center;">Admin Dashboard</h1>
+    
+    <div class="stats-cards" style="display: flex; gap: 20px; justify-content: space-around; margin-top: 30px;">
+        <div class="stat-card" style="background-color: #333; padding: 20px; border-radius: 8px; text-align: center; flex: 1;">
+            <h3 style="font-size: 1.5em; color: #bbb;">Total Orders</h3>
+            <p class="stat-number" style="font-size: 2em; color: #4CAF50;">{{ order_count }}</p>
+        </div>
+        <div class="stat-card" style="background-color: #333; padding: 20px; border-radius: 8px; text-align: center; flex: 1;">
+            <h3 style="font-size: 1.5em; color: #bbb;">Total Customers</h3>
+            <p class="stat-number" style="font-size: 2em; color: #4CAF50;">{{ user_count }}</p>
+        </div>
+        <div class="stat-card" style="background-color: #333; padding: 20px; border-radius: 8px; text-align: center; flex: 1;">
+            <h3 style="font-size: 1.5em; color: #bbb;">Total Products</h3>
+            <p class="stat-number" style="font-size: 2em; color: #4CAF50;">{{ product_count }}</p>
+        </div>
+    </div>
+    
+    <div class="recent-orders" style="margin-top: 30px;">
+        <h2 style="font-size: 2em;">Recent Orders</h2>
+        <table class="table" style="width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #1a1a1a; border-radius: 8px;">
+            <thead>
+                <tr style="background-color: #333; color: white;">
+                    <th style="padding: 10px; text-align: left;">Order ID</th>
+                    <th style="padding: 10px; text-align: left;">Customer</th>
+                    <th style="padding: 10px; text-align: left;">Date</th>
+                    <th style="padding: 10px; text-align: left;">Amount</th>
+                    <th style="padding: 10px; text-align: left;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in recent_orders %}
+                <tr style="background-color: #222; color: white; border-bottom: 1px solid #444;">
+                    <td style="padding: 10px;">{{ order.OrderNo }}</td>
+                    <td style="padding: 10px;">{{ order.Cname }}</td>
+                    <td style="padding: 10px;">{{ order.Date }}</td>
+                    <td style="padding: 10px;">${{ order.Amount }}</td>
+                    <td style="padding: 10px;">
+                        <a href="{{ url_for('admin_order_detail', order_id=order.OrderNo) }}" class="btn btn-sm btn-info" style="background-color: #4CAF50; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none;">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="admin-links" style="display: flex; justify-content: space-between; margin-top: 40px;">
+        <a href="{{ url_for('admin_orders') }}" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; font-size: 1.2em; border: none; border-radius: 5px; text-decoration: none;">Manage Orders</a>
+        <a href="{{ url_for('admin_products') }}" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; font-size: 1.2em; border: none; border-radius: 5px; text-decoration: none;">Manage Products</a>
+        <a href="{{ url_for('admin_users') }}" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; font-size: 1.2em; border: none; border-radius: 5px; text-decoration: none;">Manage Users</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+<div class="order-confirmation">
+    <h1>Order Confirmed!</h1>
+    <div class="confirmation-details">
+        <p>Thank you for your order. Your order has been placed successfully.</p>
+        <div class="order-info">
+            <h2>Order Information</h2>
+            <p><strong>Order Number:</strong> {{ order.OrderNo }}</p>
+            <p><strong>Order Date:</strong> {{ order.Date }}</p>
+            <p><strong>Total Amount:</strong> ${{ order.Amount }}</p>
+            
+            <h3>Shipping Address</h3>
+            <p>{{ order.Address }}</p>
+            <p>{{ order.City }}, {{ order.Country }} {{ order.PinCode }}</p>
+        </div>
+        
+        <div class="order-items">
+            <h2>Order Items</h2>
+            <ul>
+                {% for item in items %}
+                <li>{{ item.Pname }} - ${{ item.Price }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <a href="{{ url_for('index') }}" class="btn">Continue Shopping</a>
+</div>
+
+<style>
+    .order-confirmation {
+        background-color: #2b2b2b;
+        padding: 40px 20px;
+        color: #e0e0e0;
+        border-radius: 8px;
+        max-width: 800px;
+        margin: 40px auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .order-confirmation h1 {
+        font-size: 36px;
+        color: #ff9900;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .confirmation-details p {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .order-info, .order-items {
+        margin-top: 30px;
+    }
+
+    .order-info h2, .order-items h2 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .order-info p, .order-items ul {
+        font-size: 18px;
+        color: #cccccc;
+    }
+
+    .order-items ul {
+        padding-left: 20px;
+    }
+
+    .order-items li {
+        margin-bottom: 8px;
+    }
+
+    .btn {
+        background-color: #ff9900;
+        padding: 10px 20px;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 18px;
+        text-transform: uppercase;
+        display: block;
+        width: 100%;
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .btn:hover {
+        background-color: #ff7300;
+    }
+</style>
+{% endblock %}
+
